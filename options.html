@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fonty Options</title>
+    <style>
+        body {
+            width: 300px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Fonty Options</h1>
+    
+    <h2>Font Settings</h2>
+    <label for="fontCheckbox">Apply Font Change:</label>
+    <input type="checkbox" id="fontCheckbox" />
+
+    <h2>Whitelist Settings</h2>
+    <label for="whitelistCheckbox">Apply to Whitelisted Domains:</label>
+    <input type="checkbox" id="whitelistCheckbox" />
+    
+    <button id="addToWhitelistButton">Add Current Domain to Whitelist</button>
+    <button id="removeFromWhitelistButton">Remove Domain from Whitelist</button>
+
+    <h2>Reset Settings</h2>
+    <button id="resetFontButton">Reset Font to Original</button>
+
+    <script src="options.js"></script>
+</body>
+</html>

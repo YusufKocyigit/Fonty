@@ -1,10 +1,10 @@
 {
   "manifest_version": 2,
   "name": "Fonty - Font Changer",
-  "version": "1.0",
-  "description": "Change the font of whitelisted websites",
-  "permissions": ["activeTab"],
-  "browser_action": {
+  "version": "2.0",
+  "description": "Change the font of websites.",
+  "permissions": ["activeTab", "storage"],
+  "action": {
     "default_popup": "popup.html",
     "default_icon": {
       "16": "images/icon16.png",
@@ -20,8 +20,13 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["content.js"],
-      "exclude_matches": ["*://example.com/*", "*://example2.com/*"]
+      "js": ["content.js"]
     }
-  ]
+  ],
+  "options_ui": {
+    "page": "options.html"
+  },
+  "browser_action": {
+    "default_popup": "popup.html"
+  }
 }
