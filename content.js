@@ -1,7 +1,7 @@
 // Function to apply the font
 function applyFont(font) {
   
-  const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6, body, span, button, input, select, textarea, a, div, yt-formatted-string');
+  const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6, body, span, button, input, select, textarea, div, yt-formatted-string');
   headings.forEach(function (heading) {
     heading.style.fontFamily = font;
   });
@@ -16,13 +16,22 @@ chrome.storage.sync.get(['defaultFont'], function (result) {
     applyFont(result.defaultFont);
     console.log(`Default font loaded: ${result.defaultFont}`);
 
+    for (let i = 1; i <= 5; i++) {
+      for (let z = 1; z <= 3; z++) {
+      
+      setTimeout(function () {
+        applyFont(result.defaultFont);
+        console.log(`Reapplying font: ${selectedFont}.`);
+      }, 1000); 
+        console.log(`Iteration ${i}`);
+      }
+    }
+    
      
-    // Reapply the font after a 5-second delay
-    setTimeout(function () {
-      applyFont(result.defaultFont);
-      console.log(`Reapplying font: ${selectedFont} after 20 seconds.`);
-    }, 20000); 
 
+   
+
+    
   }
 
   
