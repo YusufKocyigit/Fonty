@@ -1,15 +1,15 @@
-// This script runs on web pages to change the font if enabled
-console.log("Content script is running.");
+// Load the default font from storage (if set)
+chrome.storage.sync.get(['defaultFont'], function (result) {
+  if (result.defaultFont) {
+    console.log(`Default font loaded: ${result.defaultFont}`);
+    document.body.style.fontFamily = result.defaultFont;
+  }
+});
 
-chrome.storage.sync.get(['applyFont', 'selectedFont'], function(result) {
-  if (result.applyFont) {
-    const selectedFont = result.selectedFont || 'arial';
-    console.log('Selected font:', selectedFont);
-
-    // Check if this log message appears in the console
-    console.log('Applying font:', selectedFont);
-
-    // Apply the selected font here
-    document.body.style.fontFamily = selectedFont === 'arial' ? 'Arial, sans-serif' : 'Roboto, sans-serif';
+// Listen for messages to change the font
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+  if (message.font) {
+    console.log(`Changing font to: ${message.font}`);
+    document.body.style.fontFamily = message.font;
   }
 });

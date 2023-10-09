@@ -5,28 +5,17 @@
     <link rel="stylesheet" type="text/css" href="popup.css">
 </head>
 <body>
-    <div class="popup-container">
-        <h1>Fonty - Font Changer</h1>
+  <h1>Fonty</h1>
+  <h3>Your Favorite Font Changer</h3>
 
-        <h2>Font Settings</h2>
-        <label for="fontSelect">Select Font:</label>
-        <select id="fontSelect">
-            <option value="arial">Arial</option>
-            <option value="roboto">Roboto</option>
-        </select>
-
-
-        <h2>Whitelist Settings</h2>
-        <label for="whitelistCheckbox">Apply to Whitelisted Domains:</label>
-        <input type="checkbox" id="whitelistCheckbox" />
-
-        <button id="addToWhitelistButton">Add Current Domain to Whitelist</button>
-        <button id="removeFromWhitelistButton">Remove Domain from Whitelist</button>
-
-        <h2>Reset Settings</h2>
-        <button id="resetFontButton">Reset Font to Original</button>
-    </div>
-
-    <script src="popup.js"></script>
+  <h3>Select a Font:</h3>
+  <p>This font will be used on every website</p>
+  <select id="fontSelector">
+    <option value="Arial">Arial</option>
+    <option value="Times New Roman">Times New Roman</option>
+    <option value="Verdana">Verdana</option>
+  </select>
+  <button id="setDefaultFont">Set Default Font</button>
+  <script src="popup.js"></script>
 </body>
 </html>

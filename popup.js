@@ -1,31 +1,24 @@
-document.addEventListener('DOMContentLoaded', function() {
-  // Retrieve and update the state of font and whitelist checkboxes
-  chrome.storage.sync.get(['applyFont', 'applyToWhitelisted', 'selectedFont'], function(result) {
-    document.getElementById('fontCheckbox').checked = result.applyFont || false;
-    document.getElementById('whitelistCheckbox').checked = result.applyToWhitelisted || false;
-    
-    // Set the selected font based on the stored value
-    const selectedFont = result.selectedFont || 'arial';
-    document.getElementById('fontSelect').value = selectedFont;
-  });
+const fontSelector = document.getElementById('fontSelector');
+const setDefaultFontButton = document.getElementById('setDefaultFont');
 
-  // Attach event listeners for checkbox changes
-  document.getElementById('fontCheckbox').addEventListener('change', function() {
-    const applyFont = this.checked;
-    chrome.storage.sync.set({ applyFont });
-  });
+// Load the default font from storage (if set)
+chrome.storage.sync.get(['defaultFont'], function (result) {
+  if (result.defaultFont) {
+    fontSelector.value = result.defaultFont;
+  }
+});
 
-  document.getElementById('whitelistCheckbox').addEventListener('change', function() {
-    const applyToWhitelisted = this.checked;
-    chrome.storage.sync.set({ applyToWhitelisted });
-  });
+setDefaultFontButton.addEventListener('click', function () {
+  const selectedFont = fontSelector.value;
 
-  // Handle font selection change
-  document.getElementById('fontSelect').addEventListener('change', function() {
-    const selectedFont = this.value;
-    chrome.storage.sync.set({ selectedFont });
-    // You may want to communicate with content.js to apply the selected font immediately
+  // Save the default font in storage
+  chrome.storage.sync.set({ defaultFont: selectedFont }, function () {
+    // Reload the active tab to apply the default font
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      const activeTab = tabs[0];
+      if (activeTab) {
+        chrome.tabs.reload(activeTab.id);
+      }
+    });
   });
-
-  // ... rest of the code for other buttons
 });
