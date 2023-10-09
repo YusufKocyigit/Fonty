@@ -5,6 +5,7 @@ const setDefaultFontButton = document.getElementById('setDefaultFont');
 chrome.storage.sync.get(['defaultFont'], function (result) {
   if (result.defaultFont) {
     fontSelector.value = result.defaultFont;
+    console.log(`Default font loaded: ${result.defaultFont}`);
   }
 });
 
@@ -13,12 +14,10 @@ setDefaultFontButton.addEventListener('click', function () {
 
   // Save the default font in storage
   chrome.storage.sync.set({ defaultFont: selectedFont }, function () {
-    // Reload the active tab to apply the default font
+    console.log(`Default font changed to ${selectedFont}`);
+    // Send a message to apply the font directly to the page
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      const activeTab = tabs[0];
-      if (activeTab) {
-        chrome.tabs.reload(activeTab.id);
-      }
+      chrome.tabs.sendMessage(tabs[0].id, { font: selectedFont });
     });
   });
 });
